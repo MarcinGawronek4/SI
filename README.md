@@ -7,3 +7,5 @@ Metody uczenia:
 Adam Ćwikliński - Sieci Neuronowe
 
 Marcin Gawronek - Algorytmy Genetyczne
+
+Damian Kuich - Algorytmy uczenia symbolicznego
