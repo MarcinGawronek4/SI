@@ -1,6 +1,6 @@
 import time
 from random import random
-
+import algorithmgenetic
 import pygame
 import D_tree_bill
 import banana
@@ -142,12 +142,13 @@ def game_main_loop():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_p:
                     if(D_tree_bill.PredictBill(estimator)==1):
-                        waiter.go_to(2,2,0)
+                        find_path_new()
                         print ("wydano rachunek")
                         waiter.addorder("go_to2")
                         waiter.addorder(1)
                         waiter.addorder(1)
                         waiter.addorder(2)
+                        waiter.addorder("generate_random_payment")
 #                         waiter.from_to()
                         
                     

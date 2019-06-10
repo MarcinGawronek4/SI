@@ -62,12 +62,13 @@ class Waiter:
             self.w = 0
 
     def go_to(self, x, y, w):
-        self.ordersqueue.queue.clear()
+       # self.ordersqueue.queue.clear()
         orderlist = MoveScript.go_to_pos(self.x, self.y, self.w, x, y, w,self.map)
+        
         if not orderlist is None:
             for order in orderlist:
                 self.addorder(order)
-        
+        print(orderlist)
     def go_to2(self):
         x=self.ordersqueue.get()
         y=self.ordersqueue.get()
@@ -75,6 +76,12 @@ class Waiter:
         orderlist = MoveScript.go_to_pos(self.x, self.y, self.w, x, y, w,self.map)
         if not orderlist is None:
             for order in orderlist:
-                self.addorder(order)
+                self.addorder(order)           
+    def generate_random_payment(self):
+        randomnumber = round(random.uniform(10,100),2)
+        algorithmgenetic.get_money(randomnumber)
+    def show_order_list(self):
+        print(self.ordersqueue)
+    
 # isinstance(x, X) czy obiekt x jest klasy X
 # pass koniec definicji
