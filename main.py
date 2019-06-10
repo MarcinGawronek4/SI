@@ -2,7 +2,7 @@ import time
 from random import random
 
 import pygame
-
+import D_tree_bill
 import banana
 import constants
 from Table import Table
@@ -14,7 +14,7 @@ objectslist = []
 
 rng_object = random()
 
-
+estimator = D_tree_bill.BuildTree()
 class struc_Tile:
     def __init__(self, block_path):
         self.block_path = block_path
@@ -123,8 +123,9 @@ def find_path_new():
 
     x = int(mouse_x / constants.CELL_WIDTH)
     y = int(mouse_y / constants.CELL_HEIGHT)
-    print(x, " ", y)
-    waiter.go_to(x, y, 0)
+    print(x+1, " ", y)
+    waiter.go_to(x, y-1, 0)
+
 
 
 def game_main_loop():
@@ -140,7 +141,16 @@ def game_main_loop():
                 game_quit = True
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_p:
-                    find_path_new()
+                    if(D_tree_bill.PredictBill(estimator)==1):
+                        waiter.go_to(2,2,0)
+                        print ("wydano rachunek")
+                        waiter.addorder("go_to2")
+                        waiter.addorder(1)
+                        waiter.addorder(1)
+                        waiter.addorder(2)
+#                         waiter.from_to()
+                        
+                    
         proc_tick()
         draw_game()
         pygame.display.flip()

@@ -45,3 +45,4 @@ O_END_OF_ARGUMENTS = 0
 O_MOVE_FORWARD = "forward"
 O_TURN_RIGHT = "right"
 O_TURN_LEFT = "left"
+O_GO_TO = "go_to2"

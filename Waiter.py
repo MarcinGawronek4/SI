@@ -2,7 +2,8 @@ import queue
 
 import MoveScript
 import constants
-
+import random
+import algorithmgenetic
 
 class Waiter:
     def __init__(self, x, y, w, map):
@@ -24,6 +25,16 @@ class Waiter:
         if not self.ordersqueue.empty():
             print(self)
             getattr(self, self.ordersqueue.get())()
+            
+    
+    def isblocked(self):
+        return not self.ordersqueue.empty()
+    
+    def donext(self):
+        pass
+        
+        
+        
 
     def forward(self):
         print("forward")
@@ -56,6 +67,14 @@ class Waiter:
         if not orderlist is None:
             for order in orderlist:
                 self.addorder(order)
-
+        
+    def go_to2(self):
+        x=self.ordersqueue.get()
+        y=self.ordersqueue.get()
+        w=self.ordersqueue.get()
+        orderlist = MoveScript.go_to_pos(self.x, self.y, self.w, x, y, w,self.map)
+        if not orderlist is None:
+            for order in orderlist:
+                self.addorder(order)
 # isinstance(x, X) czy obiekt x jest klasy X
 # pass koniec definicji

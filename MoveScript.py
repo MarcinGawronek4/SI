@@ -138,11 +138,16 @@ def go_to_pos(x, y, w, tx, ty, tw, map):
     aresult = astar(istate, fstate)
     if aresult is None:
         return None
+    if aresult.name.action =="":
+        return None
     orderlist = []
     while True:
         orderlist = [aresult.name.action] + orderlist
+        if aresult.parent is None:
+            break
         aresult = aresult.parent
         if aresult.parent is None:
             break
+       
     return orderlist
 

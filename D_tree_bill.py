@@ -29,9 +29,9 @@ def BuildTree():
     return clf
 
 
-def PredictBill(clf,prediction):
+def PredictBill(clf):
     clientInfo = [
-        [np.random.randint(2), prediction, np.random.randint(2), np.random.randint(99), np.random.randint(2),
+        [np.random.randint(2), np.random.randint(2),  np.random.randint(2), np.random.randint(99), np.random.randint(2),
          np.random.randint(2)]]
     print(clientInfo)
     result = clf.predict(clientInfo)
