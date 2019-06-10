@@ -13,41 +13,7 @@ import random
 
 
 
-#jednolizenie danych itd.
 
-img_width, img_height = 100, 100
-
-train_data_dir = 'plate-and-food/train'
-validation_data_dir = 'plate-and-food/valid'
-nb_train_samples = 700
-nb_validation_samples = 100
-epochs = 12
-batch_size = 14
-
-if K.image_data_format() == 'channels_first':
-    input_shape = (3, img_width, img_height)
-else:
-    input_shape = (img_width, img_height, 3)
-
-train_datagen = ImageDataGenerator(
-    rescale = 1. / 255,
-    shear_range = 0.2,
-    zoom_range = 0.2,
-    horizontal_flip = True)
-
-test_datagen = ImageDataGenerator(rescale = 1. / 255)
-
-train_generator = train_datagen.flow_from_directory(
-    train_data_dir,
-    target_size = (img_width, img_height),
-    batch_size = batch_size,
-    class_mode = 'binary')
-
-validation_generator = test_datagen.flow_from_directory(
-    validation_data_dir,
-    target_size = (img_width, img_height),
-    batch_size = batch_size,
-    class_mode = 'binary')
 
 
 model = load_model('third_try.h5')
@@ -62,24 +28,25 @@ k =1
 prediction = 1
 while prediction == 1:
     path = random.choice(os.listdir("C:\\Users/Kinia/Desktop/sztuczna/plate-and-food/test"))
-    print(path)
+
     if k==1:
         img_pred = image.load_img("plate-and-food/test/20151127_120156.jpg", target_size = (100, 100))
         img_pred = image.img_to_array(img_pred)
         img_pred =  np.expand_dims(img_pred, axis = 0)
 
-    elif k==0:
+    elif k>1:
         img_pred = image.load_img("plate-and-food/test/" + path, target_size=(100, 100))
         img_pred = image.img_to_array(img_pred)
         img_pred = np.expand_dims(img_pred, axis=0)
-    k = 0
+    k = k+1
+    print(k)
     rslt = model.predict(img_pred)
-    print (rslt)
+    print(prediction)
     if rslt[0][0] == 1:
         prediction = 0
     else:
         prediction = 1
-    if prediction ==0:
+    if prediction == 0:
         break
 
 
