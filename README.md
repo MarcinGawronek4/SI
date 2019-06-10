@@ -8,6 +8,6 @@ Adam Ćwikliński - Sieci Neuronowe
 
 Marcin Gawronek - Algorytmy Genetyczne
 
-Damian Kuich - Algorytmy uczenia symbolicznego
+Damian Kuich - Drzewa decyzyjne
 
 Adrianna Skowrońska - Drzewa decyzyjne
