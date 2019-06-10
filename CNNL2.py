@@ -21,7 +21,7 @@ train_data_dir = 'plate-and-food/train'
 validation_data_dir = 'plate-and-food/valid'
 nb_train_samples = 700
 nb_validation_samples = 100
-epochs = 6
+epochs = 12
 batch_size = 14
 
 if K.image_data_format() == 'channels_first':
@@ -56,19 +56,32 @@ model.summary()
 
 
 
-path = random.choice(os.listdir("C:\\Users/Kinia/Desktop/sztuczna/plate-and-food/test"))
-print(path)
-
-img_pred = image.load_img("plate-and-food/test/" + path, target_size = (100, 100))
-img_pred = image.img_to_array(img_pred)
-img_pred =  np.expand_dims(img_pred, axis = 0)
 
 
-rslt = model.predict(img_pred)
-print (rslt)
-if rslt[0][0] == 1:
-    prediction = "plate"
-else:
-    prediction = "food"
+k =1
+prediction = 1
+while prediction == 1:
+    path = random.choice(os.listdir("C:\\Users/Kinia/Desktop/sztuczna/plate-and-food/test"))
+    print(path)
+    if k==1:
+        img_pred = image.load_img("plate-and-food/test/20151127_120156.jpg", target_size = (100, 100))
+        img_pred = image.img_to_array(img_pred)
+        img_pred =  np.expand_dims(img_pred, axis = 0)
+
+    elif k==0:
+        img_pred = image.load_img("plate-and-food/test/" + path, target_size=(100, 100))
+        img_pred = image.img_to_array(img_pred)
+        img_pred = np.expand_dims(img_pred, axis=0)
+    k = 0
+    rslt = model.predict(img_pred)
+    print (rslt)
+    if rslt[0][0] == 1:
+        prediction = 0
+    else:
+        prediction = 1
+    if prediction ==0:
+        break
+
+
 
 print (prediction)
