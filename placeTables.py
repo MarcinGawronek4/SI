@@ -155,27 +155,58 @@ class entity:
 
     def mutation(self):
         # stlenght= len(self.tables)
-        ltables = len(self.tables) - 1
-        tomutate = self.tables[RNG.randint(0, ltables)]
-        newtable = wtable(randompos(), randompos())
-        isok = any((t == t2) and not (t is t2) for t in self.tables for t2 in self.tables)
-        ok = False
-        while not ok:
-            if random.choice([True, False]):
-                newtable.x = (newtable.x + 1) % 10
-            else:
-                newtable.y = (newtable.y + 1) % 10
-            ok = True
-            if any(wtable(newtable.x + x, newtable.y + y) == t for t in self.tables for x in range(-1, 2) for y in range(-1, 2)):
-                print("mutate false")
-                ok = False
-        self.tables.append(newtable)
-        self.tables.remove(tomutate)
-        isok2=any((t == t2) and not (t is t2) for t in self.tables for t2 in self.tables)
-        xddp=1
+        # ltables = len(self.tables) - 1
+        # tomutate = self.tables[RNG.randint(0, ltables)]
+        # newtable = wtable(randompos(), randompos())
+        # options=[wtable(tomutate.x+x,tomutate.y+y) for x in range(-1, 2) for y in range(-1, 2)]
+        done= False
+        while not done:
+            tomove = random.choice(self.tables)
+            options=[wtable(tomove.x+x,tomove.y+y) for x in range(-1, 2) for y in range(-1, 2)]
+            passed=[]
+            for t in options:
+                if not any(wtable(t.x+x,t.y+y)==st and st is not tomove for st in self.tables for x in range(-1, 2) for y in range(-1, 2)):
+                    passed.append(t)
+            newtable=None
+            if passed:
+                newtable=random.choice(passed)
+                self.tables.remove(tomove)
+                self.tables.append(newtable)
+                done=True
+        # [(t == t2) and not (t is t2)]
+        # isok = any((t == t2) and not (t is t2) for t in self.tables for t2 in self.tables)
+        # passed=[]
+        # for t in options:
+        #     if not any(wtable(t.x+x,t.y+y)==st and st is not tomutate for st in self.tables for x in range(-1, 2) for y in range(-1, 2)):
+        #         passed.append(t)
+        # print(passed)
+
+
+
+
+        # ok = False
+        # while not ok:
+        #     if random.choice([True, False]):
+        #         newtable.x = (newtable.x + 1) % 10
+        #     else:
+        #         newtable.y = (newtable.y + 1) % 10
+        #     ok = True
+        #     if any(wtable(newtable.x + x, newtable.y + y) == t for t in self.tables for x in range(-1, 2) for y in range(-1, 2)):
+        #         print("mutate false")
+        #         ok = False
+        # self.tables.append(newtable)
+        # self.tables.remove(tomutate)
+        # isok2=any((t == t2) and not (t is t2) for t in self.tables for t2 in self.tables)
+        # xddp=1
         # ndlenght= len(self.tables)
         # if stlenght!=ndlenght:
         #     print("mutate!!!")
+
+    def totable(self):
+        table = [[0 for x in range(constants.MAP_HEIGHT)] for y in range(constants.MAP_HEIGHT)]
+        for t in self.tables:
+            table[t.x][t.y] = 1
+        return table
 
     def symetryscore(self):
         score = 0
@@ -343,11 +374,12 @@ def geneticAlgorithmPlot(population, popSize, eliteSize, mutationRate, generatio
     plt.show()
 
 
-entity1 = entity([wtable(0, 1)])
-entity12 = copy.copy(entity1)
+# entity1 = entity([wtable(0, 1)])
+# entity12 = copy.copy(entity1)
 # entity12=entity1.copy()
-entity1.tables.append("asd")
-print(entity1.tables)
-print(entity12.tables)
+# entity1.tables.append("asd")
+# print(entity1.tables)
+# print(entity12.tables)
 
-geneticAlgorithmPlot(population=10, popSize=200, eliteSize=25, mutationRate=0.02, generations=150)
+# geneticAlgorithmPlot(population=10, popSize=200, eliteSize=25, mutationRate=0.02, generations=200)
+# print(geneticAlgorithm(stoly=10,n_populacja=200,eliteSize=20,mutationRate=0.02,generations=80).totable())
