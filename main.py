@@ -7,7 +7,7 @@ import banana
 import constants
 from Table import Table
 import Waiter
-
+import placeTables
 waiter = None
 
 objectslist = []
@@ -32,7 +32,7 @@ def map_create_hardcore():
 
 def add_objects_to_game():
     global objectslist
-    map = constants.REST
+    map = placeTables.geneticAlgorithm(stoly=10,n_populacja=200,eliteSize=20,mutationRate=0.02,generations=200).totable()
     for y in range(0, 10):
         for x in range(0, 10):
             if map[y][x] == 1:
