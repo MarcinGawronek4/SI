@@ -382,4 +382,4 @@ def geneticAlgorithmPlot(population, popSize, eliteSize, mutationRate, generatio
 # print(entity12.tables)
 
 # geneticAlgorithmPlot(population=10, popSize=200, eliteSize=25, mutationRate=0.02, generations=200)
-# print(geneticAlgorithm(stoly=10,n_populacja=200,eliteSize=20,mutationRate=0.02,generations=80).totable())
+#print(geneticAlgorithm(stoly=10,n_populacja=200,eliteSize=20,mutationRate=0.02,generations=80).totable())
