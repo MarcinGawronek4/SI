@@ -1,9 +1,12 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 from id3 import Id3Estimator, export_graphviz
 from sklearn.model_selection import train_test_split
 import pandas as ps
 import numpy as np
-
+from keras.preprocessing import image
+from keras.models import load_model
+import os
+import random
 
 def BuildTree():
     # nazwy cech
@@ -25,13 +28,33 @@ def BuildTree():
     # fit - synonim do "find patterns in data"
     clf.fit(X_train, Y_train)
     export_graphviz(clf.tree_, "test.dot", feature_names)
+    model = load_model('third_try.h5')
 
-    return clf
+    while True:
+        path = random.choice(os.listdir("C://Users/Kinia/Desktop/sztuczna2/SI-master/test"))
+        print(path)
+
+        img_pred = image.load_img("test/" + path, target_size=(100, 100))
+        img_pred = image.img_to_array(img_pred)
+        img_pred = np.expand_dims(img_pred, axis=0)
+
+        rslt = model.predict(img_pred)
+        print(rslt)
+        if rslt[0][0] == 1:
+            prediction = 1
+            break
+        else:
+            prediction = 0
+
+        print(prediction)
+    return [prediction, clf];
 
 
-def PredictBill(clf, prediction):
+def PredictBill(k):
+    clf = k[1]
+    prediction = k[0]
     clientInfo = [
-        [np.random.randint(2), prediction,  np.random.randint(2), np.random.randint(99), np.random.randint(2),
+        [np.random.randint(2), prediction, np.random.randint(2), np.random.randint(99), np.random.randint(2),
          np.random.randint(2)]]
     print(clientInfo)
     result = clf.predict(clientInfo)
@@ -44,6 +67,3 @@ def PredictBill(clf, prediction):
 #     print("udalo sie")
 # else:
 #     print("no przyps")
-
-
-
